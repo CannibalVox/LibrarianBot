@@ -24,7 +24,14 @@ module.exports = (robot) ->
   #
   # deployment - A Deployment from github_events.coffee
   robot.on "github_deployment_event", (deployment) ->
-    robot.logger.info JSON.stringify(deployment)
+    if deployment.notify
+      user  = robot.brain.userForId deployment.notify.user
+      deployment.actorName = user.name
+
+    messageBody = deployment.toSimpleString().replace(/^hubot-deploy: /i, '')
+    robot.logger.info messageBody
+    if deployment?.notify?.room?
+      robot.messageRoom deployment.notify.room, messageBody
 
   # An incoming webhook from GitHub for a deployment status.
   #
