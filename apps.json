@@ -4,6 +4,6 @@
         "auto_merge": false,
         "repository": "Merrenwen/Teiravon",
         "environments": ["live","test"],
-        "allowed_rooms": ["general"]
+        "allowed_rooms": ["271458849943322624"]
     }
 }
