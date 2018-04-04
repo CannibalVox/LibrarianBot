@@ -1,9 +1,9 @@
 {
-    "teiravon": {
+    "mod": {
         "provider": "heroku",
         "auto_merge": false,
         "repository": "Merrenwen/Teiravon",
         "environments": ["live","test"],
-        "allowed_rooms": ["271458849943322624"]
+        "allowed_rooms": ["369872707648618496"]
     }
 }
