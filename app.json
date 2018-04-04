@@ -1,0 +1,9 @@
+{
+    "teiravon": {
+        "provider": "heroku",
+        "auto_merge": false,
+        "repository": "Merrenwen/Teiravon",
+        "environments": ["live","test"],
+        "allowed_rooms": ["#development"]
+    }
+}
