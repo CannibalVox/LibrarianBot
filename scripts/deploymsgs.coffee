@@ -52,7 +52,7 @@ module.exports = (robot) ->
         robot.messageRoom status.notify.room messageBody
 
   robot.on "github_pull_request", (pullRequest) ->
-    value = "PR#{pullRequest.number} #{pullRequest.action} by #{pullRequest.actor} on #{pullRequest.repoName}"
+    value = "PR \##{pullRequest.number} #{pullRequest.action} by #{pullRequest.actor} on #{pullRequest.repoName}"
     if pullRequest.action == "opened"
       value += ": #{pullRequest.title}."
     value += " https://github.com/#{pullRequest.repoName}/pull/#{pullRequest.number}"
