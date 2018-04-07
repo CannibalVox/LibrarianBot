@@ -31,7 +31,7 @@ module.exports = (robot) ->
     messageBody = deployment.toSimpleString().replace(/^hubot-deploy: /i, '')
     robot.logger.info messageBody
     if deployment?.notify?.room?
-      robot.messageRoom deployment.notify.room, messageBody
+      robot.messageRoom deployment.notify.room, "Deploy Requested: Branch #{deployment.name}/#{deployment.ref} being deployed to #{deployment.environment}." 
 
   # An incoming webhook from GitHub for a deployment status.
   #
@@ -41,7 +41,12 @@ module.exports = (robot) ->
       user  = robot.brain.userForId status.notify.user
       status.actorName = user.name
 
+    if status.state != "success" && status.state != "failed"
+      return
     messageBody = status.toSimpleString().replace(/^hubot-deploy: /i, '')
     robot.logger.info messageBody
     if status?.notify?.room?
-      robot.messageRoom status.notify.room, messageBody
+      if status.state == "success"
+        robot.messageRoom status.notify.room, "Deploy Complete: Restarting in 30 seconds."
+      else
+        robot.messageRoom status.notify.room messageBody
