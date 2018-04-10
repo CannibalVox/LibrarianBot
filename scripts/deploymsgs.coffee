@@ -52,8 +52,12 @@ module.exports = (robot) ->
         robot.messageRoom status.notify.room messageBody
 
   robot.on "github_pull_request", (pullRequest) ->
-    value = "PR \##{pullRequest.number} #{pullRequest.action} by #{pullRequest.actor} on #{pullRequest.repoName}"
+    action = pullRequest.action
+    if action == "closed" && pullRequest.merged
+      action = "merged"
+    value = "PR \##{pullRequest.number} #{action} by #{pullRequest.actor} on #{pullRequest.repoName}"
     if pullRequest.action == "opened"
       value += ": #{pullRequest.title}."
+    
     value += " https://github.com/#{pullRequest.repoName}/pull/#{pullRequest.number}"
     robot.messageRoom '369872707648618496', value
